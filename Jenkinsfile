@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-            docker {
-                    image 'python:3-alpine'
-                }
-            }
+
 
     environment {
         DOCKER_IMAGE = 'paycare-etl'
@@ -11,6 +7,7 @@ pipeline {
 
     stages {
         stage('Clone Repository') {
+            agent any
             steps {
                 git branch: 'main', 
                     url: 'https://github.com/ncouronne/paycare.git'
@@ -18,12 +15,22 @@ pipeline {
         }
 
         stage('Install Dependencies') {
+                agent {
+        docker {
+                image 'python:3-alpine'
+            }
+        }
             steps {
                 sh 'python -m pip install -r requirements.txt'
             }
         }
 
         stage('Run Unit Tests') {
+                            agent {
+        docker {
+                image 'python:3-alpine'
+            }
+        }
             steps {
                 sh 'pytest --junitxml=unit-tests.xml'
             }
@@ -35,12 +42,14 @@ pipeline {
         }
 
         stage('Build Docker Image') {
+            agent any
             steps {
                 sh 'docker build -t ${DOCKER_IMAGE} .'
             }
         }
 
         stage('Run Docker Container') {
+            agent any
             steps {
                 script {
                     // Create input data file dynamically
