@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+            docker {
+                    image 'python:3-alpine'
+                }
+            }
 
     environment {
         DOCKER_IMAGE = 'paycare-etl'
