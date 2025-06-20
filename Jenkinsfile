@@ -14,17 +14,15 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            steps {
-                withPythonEnv('python3') {
+
                 sh 'python3 -m pip install -r requirements.txt'}
-            }
+            
         }
 
         stage('Run Unit Tests') {
             steps {
-                withPythonEnv('python3') {
                 sh 'pytest --junitxml=unit-tests.xml'}
-            }
+        
             post {
                 always {
                     junit 'unit-tests.xml'  // Publish test results
