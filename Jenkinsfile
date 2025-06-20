@@ -1,6 +1,6 @@
 pipeline {
 
-
+    agent none
     environment {
         DOCKER_IMAGE = 'paycare-etl'
     }
