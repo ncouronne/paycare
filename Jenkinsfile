@@ -15,14 +15,14 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                withPythonEnv('python') {
-                sh 'python -m pip install -r requirements.txt'}
+                withPythonEnv('python3') {
+                sh 'python3 -m pip install -r requirements.txt'}
             }
         }
 
         stage('Run Unit Tests') {
             steps {
-                withPythonEnv('python') {
+                withPythonEnv('python3') {
                 sh 'pytest --junitxml=unit-tests.xml'}
             }
             post {
