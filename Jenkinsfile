@@ -24,7 +24,8 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                sh 'pytest --junitxml=unit-tests.xml'}
+                sh '''. venv/bin/activate
+                pytest --junitxml=unit-tests.xml'''}
         
             post {
                 always {
