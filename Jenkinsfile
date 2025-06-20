@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/ncouronne/paycare.git'
+                git clone 'https://github.com/ncouronne/paycare.git'
             }
         }
 
